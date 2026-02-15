@@ -1,1 +1,1 @@
-# schedule-builder
+# Schedule Builder
