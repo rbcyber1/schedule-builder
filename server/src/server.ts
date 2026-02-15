@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, "../config/.env") });
 
 const app = express();
 const PORT = process.env.SCHEDULE_BUILDER_PORT || 8000;
