@@ -20,9 +20,6 @@ export default function Home() {
             <h1>RBHS Schedule Builder</h1>
             <div className="card">
                 <p>Currently under maintenance. Please check back later.</p>
-                <a href="/links">Test Links.</a>
-                <br />
-                <a href="/random">Test 404.</a>
             </div>
         </>
     );
