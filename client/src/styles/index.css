@@ -1,20 +1,34 @@
 :root {
-    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Roboto",
+        sans-serif;
+    line-height: 1.4;
     font-weight: 400;
 
-    --bg: #f4f7fb;
+    --font-mono: "SF Mono", "Consolas", "Monaco", "Courier New", monospace;
+
+    --bg: #f8fafc;
     --surface: #ffffff;
+    --surface-elevated: #ffffff;
 
-    --primary: #2563eb; /* blue */
-    --secondary: #14b8a6; /* teal */
-    --accent: #f59e0b; /* amber */
+    --primary: #2563eb;
+    --secondary: #14b8a6;
+    --accent: #f59e0b;
 
-    --text: #1e293b;
+    --text: #0f172a;
     --text-muted: #64748b;
+    --text-subtle: #94a3b8;
 
     --border: #e2e8f0;
     --gridline: #cbd5e1;
+    --gridline-strong: #94a3b8;
+
+    --hover-overlay: rgba(0, 0, 0, 0.04);
+    --active-overlay: rgba(37, 99, 235, 0.1);
+    --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.15);
+
+    /* Shared header bar height */
+    --header-height: 4rem;
 
     color-scheme: light dark;
     color: var(--text);
@@ -37,6 +51,22 @@ h1,
 h2,
 h3 {
     color: var(--text);
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 a {
@@ -78,19 +108,48 @@ button.accent {
 .card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .muted {
     color: var(--text-muted);
 }
 
+.subtle {
+    color: var(--text-subtle);
+}
+
+.mono {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    letter-spacing: -0.02em;
+}
+
+.interactive {
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.interactive:hover {
+    background: var(--hover-overlay);
+}
+
+.interactive:active {
+    background: var(--active-overlay);
+}
+
+.interactive:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg: #0f172a;
+        --bg: #0a0f1e;
         --surface: #1e293b;
+        --surface-elevated: #334155;
 
         --primary: #3b82f6;
         --secondary: #14b8a6;
@@ -98,9 +157,16 @@ button.accent {
 
         --text: #f1f5f9;
         --text-muted: #94a3b8;
+        --text-subtle: #64748b;
 
         --border: #334155;
-        --gridline: #334155;
+        --gridline: #2d3748;
+        --gridline-strong: #475569;
+
+        /* Interactive states for dark mode */
+        --hover-overlay: rgba(255, 255, 255, 0.06);
+        --active-overlay: rgba(59, 130, 246, 0.15);
+        --focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.25);
     }
 
     button {

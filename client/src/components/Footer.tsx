@@ -3,10 +3,47 @@ import "../styles/Footer.css";
 export default function Footer() {
     return (
         <footer>
-            <p>
-                &copy; {new Date().getFullYear()} Rancho Bernardo Cybersecurity
-                Club. Non-commercial uses permitted.
-            </p>
+            <div className="copyright">
+                <p>
+                    &copy; {new Date().getFullYear()} Rancho Bernardo
+                    Cybersecurity Club. Non-commercial uses permitted.
+                </p>
+            </div>
+            <div className="socials">
+                <a
+                    href="https://www.instagram.com/rbhscyber"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <img
+                        className="social-icon"
+                        src="/instagram.svg"
+                        alt="Instagram"
+                    />
+                </a>
+                <a
+                    href="https://github.com/rbcyber1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <img
+                        className="social-icon"
+                        src="/github.svg"
+                        alt="GitHub"
+                    />
+                </a>
+                <a
+                    href="https://discord.gg/SqctanM3b7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <img
+                        className="social-icon"
+                        src="/discord.svg"
+                        alt="Discord"
+                    />
+                </a>
+            </div>
         </footer>
     );
 }

@@ -6,12 +6,12 @@
 .logo {
     height: 12em;
     padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+    transition: all 0.25s ease;
 }
 
 .logo:hover {
-    filter: drop-shadow(0 0 2em var(--primary));
+    opacity: 1;
+    transform: translateY(-2px) scale(1.08);
 }
 
 .content-card {
