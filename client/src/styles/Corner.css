@@ -1,0 +1,69 @@
+.corner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: var(--surface);
+    border-bottom: 2px solid var(--border);
+    border-right: 2px solid var(--border);
+    padding: 0 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.03);
+    z-index: 101;
+    backdrop-filter: blur(8px);
+    max-width: 280px;
+    height: var(--header-height);
+    box-sizing: border-box;
+}
+
+.corner .title-area {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.corner .logo {
+    height: 2.25rem;
+    width: auto;
+    padding: 0.25rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    flex-shrink: 0;
+}
+
+.corner h2 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+    .corner {
+        position: static;
+        width: 100%;
+        max-width: none;
+        height: auto;
+        border-right: none;
+        border-bottom: none;
+        justify-content: center;
+        padding: 1rem 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .corner {
+        padding: 0.75rem 1rem;
+    }
+
+    .corner .logo {
+        height: 3rem;
+    }
+
+    .corner h2 {
+        font-size: 1rem;
+    }
+}
