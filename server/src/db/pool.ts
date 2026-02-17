@@ -1,22 +1,21 @@
-import mysql from "mysql2/promise";
-import dotenv from "dotenv";
-import path from "path";
-import { fileURLToPath } from "url";
+import mysql, { Pool } from "mysql2/promise";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+let pool: Pool;
 
-dotenv.config({ path: path.join(__dirname, "../../config/.env") });
+const getPool = (): Pool => {
+    if (!pool) {
+        pool = mysql.createPool({
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME,
+            port: parseInt(process.env.DB_PORT || "3306", 10),
+            waitForConnections: true,
+            connectionLimit: 10,
+            queueLimit: 0,
+        });
+    }
+    return pool;
+};
 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: parseInt(process.env.DB_PORT || "3306", 10),
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0,
-});
-
-export default pool;
+export default getPool;

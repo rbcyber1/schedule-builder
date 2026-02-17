@@ -12,7 +12,14 @@ import editDBRoutes from "./routes/editDB.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: path.join(__dirname, "../config/.env") });
+// Resolve the server/ directory regardless of whether we're running from
+// source (server/src/) or compiled output (server/dist/server/src/).
+const serverRoot =
+    __dirname.includes("dist") ?
+        path.resolve(__dirname, "../../..")
+    :   path.resolve(__dirname, "..");
+
+dotenv.config({ path: path.join(serverRoot, "config/.env") });
 
 const app = express();
 const PORT = process.env.SCHEDULE_BUILDER_PORT || 8000;
@@ -29,7 +36,7 @@ createTables().catch((err) => {
 }); // DB must be initialized before the server starts.
 
 if (process.env.NODE_ENV === "production") {
-    const clientPath = path.join(__dirname, "../../client/dist");
+    const clientPath = path.resolve(serverRoot, "../client/dist");
     app.use(express.static(clientPath));
 
     app.get(/(.*)/, (_, res) => {
