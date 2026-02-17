@@ -1,11 +1,12 @@
 {
     "compilerOptions": {
         "outDir": "dist",
-        "rootDir": "src",
+        "rootDir": "..",
         "module": "NodeNext",
         "target": "ES2020",
         "moduleResolution": "NodeNext",
         "esModuleInterop": true,
         "strict": true
-    }
+    },
+    "include": ["src", "../shared"]
 }
