@@ -3,6 +3,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
+import { createTables } from "./db/edit.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -13,9 +15,10 @@ const PORT = process.env.SCHEDULE_BUILDER_PORT || 8000;
 
 app.use(express.json());
 
-app.get("/api/health", (_, res) => {
-    res.json({ status: "ok" });
-});
+createTables().catch((err) => {
+    console.error("Error creating tables:", err);
+    process.exit(1);
+}); // DB must be initialized before the server starts.
 
 if (process.env.NODE_ENV === "production") {
     const clientPath = path.join(__dirname, "../../client/dist");
@@ -26,6 +29,6 @@ if (process.env.NODE_ENV === "production") {
     });
 }
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log(`Server running on port ${PORT}`);
 });
