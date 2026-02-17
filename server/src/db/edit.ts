@@ -1,7 +1,7 @@
-import pool from "./pool.js";
+import getPool from "./pool.js";
 
 export const createTables = async () => {
-    await pool.execute(`
+    await getPool().execute(`
         CREATE TABLE IF NOT EXISTS pusd_credits (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL UNIQUE,
@@ -9,7 +9,7 @@ export const createTables = async () => {
         )
     `);
 
-    await pool.execute(`
+    await getPool().execute(`
         CREATE TABLE IF NOT EXISTS csu_credits (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL UNIQUE,
@@ -17,7 +17,7 @@ export const createTables = async () => {
         )
     `);
 
-    await pool.execute(`
+    await getPool().execute(`
         CREATE TABLE IF NOT EXISTS classes (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
@@ -43,7 +43,7 @@ export const addClass = async (
     semesterRestriction: number | null,
     pairedWith: number | null,
 ) => {
-    await pool.execute(
+    await getPool().execute(
         `INSERT INTO classes (name, crf_id, credits, grade_level, is_weighted, is_grade_required, semester_restriction, paired_with) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name = VALUES(name), credits = VALUES(credits), grade_level = VALUES(grade_level), is_weighted = VALUES(is_weighted), is_grade_required = VALUES(is_grade_required), semester_restriction = VALUES(semester_restriction), paired_with = VALUES(paired_with)`,
         [
             name,
@@ -63,19 +63,19 @@ export const addCreditRequirement = async (
     name: string,
     neededCredits: number,
 ) => {
-    await pool.execute(
+    await getPool().execute(
         `INSERT INTO ${table} (name, needed_credits) VALUES (?, ?) ON DUPLICATE KEY UPDATE needed_credits = VALUES(needed_credits)`,
         [name, neededCredits],
     );
 };
 
 export const deleteClass = async (id: number) => {
-    await pool.execute(`DELETE FROM classes WHERE id = ?`, [id]);
+    await getPool().execute(`DELETE FROM classes WHERE id = ?`, [id]);
 };
 
 export const deleteCreditRequirement = async (
     table: "pusd_credits" | "csu_credits",
     name: string,
 ) => {
-    await pool.execute(`DELETE FROM ${table} WHERE name = ?`, [name]);
+    await getPool().execute(`DELETE FROM ${table} WHERE name = ?`, [name]);
 };

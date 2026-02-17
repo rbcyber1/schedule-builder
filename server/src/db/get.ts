@@ -1,11 +1,11 @@
 import { CreditCategory } from "../../../shared/types/class.js";
 import { ClassesResponse } from "../types/web.js";
-import pool from "./pool.js";
+import getPool from "./pool.js";
 
 export const getCreditTable = async (
     tableName: "pusd_credits" | "csu_credits",
 ) => {
-    const result = await pool.execute(
+    const result = await getPool().execute(
         `SELECT name, needed_credits FROM ${tableName}`,
     );
 
@@ -19,7 +19,7 @@ export const getCreditTable = async (
 };
 
 export const getClasses = async () => {
-    const result = await pool.execute(
+    const result = await getPool().execute(
         `SELECT id, name, crf_id, credits, grade_level, is_weighted, is_grade_required, semester_restriction, paired_with FROM classes`,
     );
 
