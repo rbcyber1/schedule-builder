@@ -4,7 +4,7 @@
     "description": "ExpressJS backend for schedule-builder",
     "main": "index.js",
     "scripts": {
-        "dev": "ts-node-dev --respawn src/server.ts",
+        "dev": "tsx watch src/server.ts",
         "build": "tsc",
         "start": "node dist/server.js"
     },
@@ -14,6 +14,7 @@
     },
     "author": "rbcyber1",
     "license": "ISC",
+    "type": "module",
     "bugs": {
         "url": "https://github.com/rbcyber1/schedule-builder/issues"
     },
@@ -24,7 +25,8 @@
         "cors": "^2.8.6",
         "dotenv": "^17.3.1",
         "express": "^5.2.1",
-        "ts-node-dev": "^2.0.0",
+        "mysql2": "^3.17.2",
+        "tsx": "^4.21.0",
         "typescript": "^5.9.3"
     }
 }

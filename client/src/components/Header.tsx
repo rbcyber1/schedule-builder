@@ -7,6 +7,7 @@ export default function Header() {
             <div className="nav-buttons">
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/links">Links</NavLink>
+                <NavLink to="/modify">Modify</NavLink>
             </div>
         </header>
     );

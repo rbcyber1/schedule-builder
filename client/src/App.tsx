@@ -4,6 +4,7 @@ import Layout from "./Layout";
 
 import Home from "./pages/Home";
 import Links from "./pages/Links";
+import Modify from "./pages/Modify";
 import NotFound from "./pages/NotFound";
 
 import "./styles/App.css";
@@ -14,6 +15,7 @@ export default function App() {
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="links" element={<Links />} />
+                <Route path="modify" element={<Modify />} />
                 <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>
