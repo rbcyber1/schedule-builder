@@ -68,3 +68,14 @@ export const addCreditRequirement = async (
         [name, neededCredits],
     );
 };
+
+export const deleteClass = async (id: number) => {
+    await pool.execute(`DELETE FROM classes WHERE id = ?`, [id]);
+};
+
+export const deleteCreditRequirement = async (
+    table: "pusd_credits" | "csu_credits",
+    name: string,
+) => {
+    await pool.execute(`DELETE FROM ${table} WHERE name = ?`, [name]);
+};

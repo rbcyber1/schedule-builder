@@ -13,7 +13,7 @@ export default interface Class {
     semesterRestriction: number | null; // 1 for fall only, 2 for spring only
 }
 
-interface CreditCategory {
+export interface CreditCategory {
     name: string;
     needed_credits: number;
 }

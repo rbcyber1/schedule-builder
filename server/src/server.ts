@@ -4,6 +4,10 @@ import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
 import { createTables } from "./db/edit.js";
+import logger from "./middleware/logger.js";
+
+import getDBRoutes from "./routes/getDB.js";
+import editDBRoutes from "./routes/editDB.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,6 +18,10 @@ const app = express();
 const PORT = process.env.SCHEDULE_BUILDER_PORT || 8000;
 
 app.use(express.json());
+app.use(logger);
+
+app.use("/api/get", getDBRoutes);
+app.use("/api/edit", editDBRoutes);
 
 createTables().catch((err) => {
     console.error("Error creating tables:", err);
