@@ -1,0 +1,56 @@
+.modify-credit-charts-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.credit-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.credit-section + .credit-section {
+    border-top: 1px solid var(--border);
+}
+
+.credit-section-header {
+    margin: 0;
+    padding: 1rem 1.5rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.credit-section-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.add-credit-button {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.credit-list {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}

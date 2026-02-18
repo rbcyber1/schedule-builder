@@ -10,16 +10,33 @@
     width: 100%;
     margin: 0 auto;
     padding: 2.5rem 2rem;
+    box-sizing: border-box;
+}
+
+.main-content:has(.modify-page) {
+    max-width: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 @media (max-width: 768px) {
     .main-content {
         padding: 1.5rem 1rem;
     }
+
+    .main-content:has(.modify-page) {
+        padding: 0;
+    }
 }
 
 @media (min-width: 1600px) {
     .main-content {
         max-width: 1600px;
+    }
+
+    .main-content:has(.modify-page) {
+        max-width: none;
     }
 }

@@ -12,7 +12,7 @@
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.03);
     z-index: 101;
     backdrop-filter: blur(8px);
-    max-width: 280px;
+    width: 280px;
     height: var(--header-height);
     box-sizing: border-box;
 }

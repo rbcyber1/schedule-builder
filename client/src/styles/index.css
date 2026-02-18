@@ -117,6 +117,10 @@ button.accent {
     color: var(--text-muted);
 }
 
+.warn {
+    color: #dc2626;
+}
+
 .subtle {
     color: var(--text-subtle);
 }

@@ -1,0 +1,69 @@
+.modify-page {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+/* Ensure all section headers in the modify page have the same height */
+.modify-page .operations-list-header,
+.modify-page .class-list-header,
+.modify-page .credit-section-header {
+    height: 3.5rem;
+    box-sizing: border-box;
+}
+
+.modify-main {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.modify-operations {
+    width: 280px;
+    flex-shrink: 0;
+    background: var(--bg);
+    overflow-y: auto;
+    border-right: 2px solid var(--border);
+    box-sizing: border-box;
+}
+
+.modify-class-list {
+    flex: 2;
+    min-width: 0;
+    background: var(--bg);
+    overflow-y: auto;
+}
+
+.modify-credit-chart {
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+    background: var(--bg);
+    overflow-y: auto;
+    border-left: 1px solid var(--border);
+}
+
+.modify-control-panel {
+    border-top: 2px solid var(--border);
+    background: var(--surface);
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .modify-main {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .modify-operations {
+        width: auto;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .modify-credit-chart {
+        max-width: none;
+        min-width: 0;
+        border-top: 1px solid var(--border);
+    }
+}
