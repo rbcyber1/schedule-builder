@@ -1,0 +1,17 @@
+.settings-panel {
+    padding: 1.25rem 1.25rem;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.settings-panel-header h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.settings-panel-content {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
