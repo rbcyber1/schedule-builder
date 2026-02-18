@@ -1,5 +1,5 @@
 export function getClasses() {
-    return fetch("/api/classes")
+    return fetch("/api/get/classes")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Failed to fetch classes");
@@ -13,7 +13,7 @@ export function getClasses() {
 }
 
 export function getPUSDCreditRequirements() {
-    return fetch("/api/credit-requirements/pusd")
+    return fetch("/api/get/credits/pusd")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Failed to fetch PUSD credit requirements");
@@ -27,7 +27,7 @@ export function getPUSDCreditRequirements() {
 }
 
 export function getCSUCreditRequirements() {
-    return fetch("/api/credit-requirements/csu")
+    return fetch("/api/get/credits/csu")
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Failed to fetch CSU credit requirements");
