@@ -13,11 +13,18 @@ import {
     MessageResponse,
 } from "../types/web.js";
 
+const ACCESS_CODE = process.env.SB_ACCESS_CODE;
+
 export const addSpecifiedClass = async (
     req: Request,
     res: Response<MessageResponse | ErrorResponse>,
 ): Promise<void> => {
     try {
+        const { access_code } = req.body;
+        if (access_code !== ACCESS_CODE) {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+        }
         const {
             name,
             crf_id,
@@ -50,6 +57,11 @@ export const addPUSDCreditRequirement = async (
     res: Response<CreditResponse | ErrorResponse>,
 ): Promise<void> => {
     try {
+        const { access_code } = req.body;
+        if (access_code !== ACCESS_CODE) {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+        }
         const { requirement_name, credits } = req.body;
         await addCreditRequirement("pusd_credits", requirement_name, credits);
         res.status(201).json({
@@ -66,6 +78,11 @@ export const addCSUCreditRequirement = async (
     res: Response<CreditResponse | ErrorResponse>,
 ): Promise<void> => {
     try {
+        const { access_code } = req.body;
+        if (access_code !== ACCESS_CODE) {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+        }
         const { requirement_name, credits } = req.body;
         await addCreditRequirement("csu_credits", requirement_name, credits);
         res.status(201).json({
@@ -82,6 +99,11 @@ export const deleteSpecifiedClass = async (
     res: Response<CreditResponse | ErrorResponse>,
 ): Promise<void> => {
     try {
+        const { access_code } = req.body;
+        if (access_code !== ACCESS_CODE) {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+        }
         const class_id = req.params.class_id as string;
         await deleteClass(parseInt(class_id));
         res.json({ message: "Class deleted successfully" });
@@ -96,6 +118,11 @@ export const deletePUSDCreditRequirement = async (
     res: Response<CreditResponse | ErrorResponse>,
 ): Promise<void> => {
     try {
+        const { access_code } = req.body;
+        if (access_code !== ACCESS_CODE) {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+        }
         const requirement_name = req.params.requirement_name as string;
         await deleteCreditRequirement("pusd_credits", requirement_name);
         res.json({ message: "PUSD credit requirement deleted successfully" });
@@ -110,6 +137,11 @@ export const deleteCSUCreditRequirement = async (
     res: Response<CreditResponse | ErrorResponse>,
 ): Promise<void> => {
     try {
+        const { access_code } = req.body;
+        if (access_code !== ACCESS_CODE) {
+            res.status(401).json({ error: "Unauthorized" });
+            return;
+        }
         const requirement_name = req.params.requirement_name as string;
         await deleteCreditRequirement("csu_credits", requirement_name);
         res.json({ message: "CSU credit requirement deleted successfully" });
