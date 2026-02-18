@@ -1,17 +1,29 @@
 import { useState } from "react";
 
+import "../styles/ControlPanel.css";
+
 export default function ControlPanel() {
     const [accessCode, setAccessCode] = useState("");
     return (
         <div className="control-panel">
-            <div className="operation-list"></div>
-            <div className="set-access-code">
+            <div className="control-panel-left">
+                <div className="operation-list">
+                    <span className="operation-label">
+                        No pending operations
+                    </span>
+                </div>
+            </div>
+            <div className="control-panel-right">
                 <input
-                    type="text"
+                    className="access-code-input"
+                    type="password"
                     value={accessCode}
                     onChange={(e) => setAccessCode(e.target.value)}
-                    placeholder="Enter Access Code"
+                    placeholder="Access Code"
                 />
+                <button className="submit-button" disabled={!accessCode}>
+                    Submit
+                </button>
             </div>
         </div>
     );

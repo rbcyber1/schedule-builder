@@ -1,0 +1,130 @@
+.class-list-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.class-list-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.class-list-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.add-class-button {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8rem;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.class-list {
+    flex: 1;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.class-list-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 1rem;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+}
+
+.class-list-item:hover {
+    background: var(--hover-overlay);
+}
+
+.class-list-item-id {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-subtle);
+    min-width: 2.5rem;
+}
+
+.class-list-item-crf {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    min-width: 4rem;
+}
+
+.class-list-item-name {
+    flex: 1;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.class-list-item-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--primary);
+    background: var(--active-overlay);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.class-list-item-credits {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    min-width: 3rem;
+    text-align: right;
+}
+
+.class-list-item-button {
+    flex-shrink: 0;
+}
+
+.class-list-item .delete-button {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: none;
+}
+
+.class-list-item .delete-button:hover {
+    background: #fee2e2;
+    border-color: #fca5a5;
+    color: #dc2626;
+}
+
+@media (prefers-color-scheme: dark) {
+    .class-list-item .delete-button:hover {
+        background: rgba(220, 38, 38, 0.15);
+        border-color: rgba(220, 38, 38, 0.4);
+        color: #f87171;
+    }
+}
