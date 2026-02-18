@@ -8,6 +8,7 @@ import logger from "./middleware/logger.js";
 
 import getDBRoutes from "./routes/getDB.js";
 import editDBRoutes from "./routes/editDB.js";
+import healthRoutes from "./routes/health.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,6 +30,7 @@ app.use(logger);
 
 app.use("/api/get", getDBRoutes);
 app.use("/api/edit", editDBRoutes);
+app.use("/api/health", healthRoutes);
 
 createTables().catch((err) => {
     console.error("Error creating tables:", err);

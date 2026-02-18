@@ -14,6 +14,12 @@ export interface ClassesResponse {
     paired_with: number | null;
 }
 
+export interface HealthResponse {
+    status: string;
+    message: string;
+    error?: string;
+}
+
 export interface ErrorResponse {
     error: string;
 }
