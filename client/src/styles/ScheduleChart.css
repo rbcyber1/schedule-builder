@@ -1,0 +1,101 @@
+.schedule-chart {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.schedule-chart-grid {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Quarter labels header row */
+.schedule-quarter-header {
+    display: grid;
+    grid-template-columns: 100px repeat(4, 1fr);
+    flex-shrink: 0;
+    border-bottom: 2px solid var(--gridline-strong);
+    background: var(--surface);
+    height: 2.5rem;
+    box-sizing: border-box;
+}
+
+.schedule-corner {
+    border-right: 2px solid var(--gridline-strong);
+}
+
+.schedule-quarter-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    border-right: 1px solid var(--border);
+}
+
+.schedule-quarter-label:last-child {
+    border-right: none;
+}
+
+/* Grade rows */
+.schedule-grade-row {
+    display: grid;
+    grid-template-columns: 100px repeat(4, 1fr);
+    flex: 1;
+    min-height: 0;
+}
+
+.schedule-grade-row + .schedule-grade-row {
+    border-top: 2px solid var(--gridline-strong);
+}
+
+.schedule-grade-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    background: var(--surface);
+    border-right: 2px solid var(--gridline-strong);
+}
+
+.schedule-quarter-slots {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    border-right: 1px solid var(--border);
+}
+
+.schedule-quarter-slots:last-child {
+    border-right: none;
+}
+
+.schedule-slot {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    transition: background 0.15s ease;
+}
+
+.schedule-slot:last-child {
+    border-bottom: none;
+}
+
+.schedule-slot:hover {
+    background: var(--hover-overlay);
+}
+
+@media (max-width: 900px) {
+    .schedule-quarter-header,
+    .schedule-grade-row {
+        grid-template-columns: 80px repeat(4, 1fr);
+    }
+
+    .schedule-grade-label {
+        font-size: 0.75rem;
+    }
+}

@@ -1,0 +1,47 @@
+/* Credit chart container splits vertical space */
+.credit-chart-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.pusd-credit-chart {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid var(--gridline-strong);
+    min-height: 0;
+}
+
+.csu-credit-chart {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.pusd-credit-chart-header,
+.csu-credit-chart-header {
+    padding: 0 1.25rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--gridline-strong);
+    background: var(--surface);
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.pusd-credit-chart-header h2,
+.csu-credit-chart-header h2 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.pusd-credit-chart-content,
+.csu-credit-chart-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem 0;
+}

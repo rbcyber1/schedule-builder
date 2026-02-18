@@ -1,5 +1,6 @@
 import ScheduleChart from "../components/ScheduleChart";
-import CreditChart from "../components/CreditChart";
+import PUSDCreditChart from "../components/PUSDCreditChart";
+import CSUCreditChart from "../components/CSUCreditChart";
 import StatPanel from "../components/StatPanel";
 import SettingsPanel from "../components/SettingsPanel";
 
@@ -12,13 +13,13 @@ export default function Home() {
                 <ScheduleChart />
             </div>
             <div className="credit-chart-container">
-                <CreditChart />
-                <CreditChart />
+                <PUSDCreditChart />
+                <CSUCreditChart />
             </div>
-            <div className="stats-panel">
+            <div className="stats-panel-container">
                 <StatPanel />
             </div>
-            <div className="settings-panel">
+            <div className="settings-panel-container">
                 <SettingsPanel />
             </div>
         </div>

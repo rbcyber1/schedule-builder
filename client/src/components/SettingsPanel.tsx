@@ -1,8 +1,14 @@
+import "../styles/SettingsPanel.css";
+
 export default function SettingsPanel() {
     return (
         <div className="settings-panel">
-            <h2>Settings Panel</h2>
-            {/* Placeholder for settings panel content */}
+            <div className="settings-panel-header">
+                <h2>Settings</h2>
+            </div>
+            <div className="settings-panel-content">
+                {/* Placeholder for settings panel content */}
+            </div>
         </div>
     );
 }

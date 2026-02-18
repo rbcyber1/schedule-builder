@@ -48,3 +48,72 @@
 .text-center {
     text-align: center;
 }
+
+/* ── Home page grid layout ── */
+.schedule-builder-container {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    grid-template-rows: 1fr 120px;
+    flex: 1;
+    min-height: 0;
+}
+
+.schedule-builder-container > .schedule-chart-container {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 0;
+    overflow: auto;
+    border-right: 1px solid var(--border);
+}
+
+.schedule-builder-container > .credit-chart-container {
+    grid-column: 2;
+    grid-row: 1;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.schedule-builder-container > .stats-panel-container {
+    grid-column: 1;
+    grid-row: 2;
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+}
+
+.schedule-builder-container > .settings-panel-container {
+    grid-column: 2;
+    grid-row: 2;
+    border-top: 1px solid var(--border);
+}
+
+@media (max-width: 900px) {
+    .schedule-builder-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
+    }
+
+    .schedule-builder-container > .schedule-chart-container {
+        grid-column: 1;
+        grid-row: 1;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .schedule-builder-container > .credit-chart-container {
+        grid-column: 1;
+        grid-row: 2;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .schedule-builder-container > .stats-panel-container {
+        grid-column: 1;
+        grid-row: 3;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .schedule-builder-container > .settings-panel-container {
+        grid-column: 1;
+        grid-row: 4;
+    }
+}
