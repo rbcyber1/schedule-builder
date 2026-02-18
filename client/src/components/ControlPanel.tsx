@@ -7,10 +7,10 @@ export default function ControlPanel() {
     return (
         <div className="control-panel">
             <div className="control-panel-left">
-                <div className="operation-list">
-                    <span className="operation-label">
-                        No pending operations
-                    </span>
+                <div className="response-area">
+                    <code className="response-text">
+                        No response yet.
+                    </code>
                 </div>
             </div>
             <div className="control-panel-right">

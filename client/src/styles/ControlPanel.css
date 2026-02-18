@@ -11,9 +11,20 @@
     min-width: 0;
 }
 
-.operation-label {
-    font-size: 0.85rem;
+.response-area {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    overflow-x: auto;
+}
+
+.response-text {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     color: var(--text-muted);
+    white-space: pre;
+    line-height: 1.4;
 }
 
 .control-panel-right {

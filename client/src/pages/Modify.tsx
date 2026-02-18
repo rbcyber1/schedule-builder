@@ -1,3 +1,4 @@
+import OperationsList from "../components/OperationsList";
 import ModifyClassList from "../components/ModifyClassList";
 import ModifyCreditChart from "../components/ModifyCreditChart";
 import ControlPanel from "../components/ControlPanel";
@@ -8,6 +9,9 @@ export default function Modify() {
     return (
         <div className="modify-page">
             <div className="modify-main">
+                <div className="modify-operations">
+                    <OperationsList />
+                </div>
                 <div className="modify-class-list">
                     <ModifyClassList />
                 </div>
