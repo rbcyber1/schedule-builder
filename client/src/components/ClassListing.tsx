@@ -1,26 +1,37 @@
+import type { ClassesResponse } from "../../../shared/types/web";
 import "../styles/ClassList.css";
-
-interface ClassListingProps {
-    id: number;
-    name: string;
-    crf_id: string;
-    credits: number;
-    is_weighted: boolean;
-}
 
 export default function ClassListing({
     id,
     name,
     crf_id,
     credits,
+    grade_level,
     is_weighted,
-}: ClassListingProps) {
+    is_grade_required,
+    semester_restriction,
+    paired_with,
+}: ClassesResponse) {
     return (
         <div className="class-list-item">
             <span className="class-list-item-id">#{id}</span>
             <span className="class-list-item-crf">{crf_id}</span>
             <span className="class-list-item-name">{name}</span>
+            <span className="class-list-item-grade">Gr. {grade_level}</span>
             {is_weighted && <span className="class-list-item-badge">W</span>}
+            {is_grade_required && (
+                <span className="class-list-item-badge">GR</span>
+            )}
+            {semester_restriction && (
+                <span className="class-list-item-badge">
+                    {semester_restriction === 1 ? "Fall" : "Spring"}
+                </span>
+            )}
+            {paired_with && (
+                <span className="class-list-item-badge">
+                    Paired: #{paired_with}
+                </span>
+            )}
             <span className="class-list-item-credits">{credits} cr</span>
             <div className="class-list-item-button">
                 <button className="delete-button">X</button>

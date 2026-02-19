@@ -1,23 +1,25 @@
 import { useState, useEffect } from "react";
+
+import type { ClassesResponse } from "../../../shared/types/web";
 import ClassListing from "./ClassListing";
-import { getClasses } from "../utils/db/getData";
+
+import { displayClasses } from "../utils/displayModify";
+
 import "../styles/ClassList.css";
 import "../styles/Modal.css";
 
-interface ClassEntry {
-    id: number;
-    name: string;
-    crf_id: string;
-    credits: number;
-    is_weighted: boolean;
-}
-
 export default function ModifyClassList() {
     const [showModal, setShowModal] = useState(false);
-    const [classes, setClasses] = useState<ClassEntry[]>([]);
+    const [classes, setClasses] = useState<ClassesResponse[]>([]);
 
     useEffect(() => {
-        getClasses().then(setClasses);
+        const fetchClasses = () => {
+            displayClasses(setClasses);
+        };
+
+        fetchClasses();
+        window.addEventListener("updateDB", fetchClasses);
+        return () => window.removeEventListener("updateDB", fetchClasses);
     }, []);
 
     return (
@@ -33,14 +35,7 @@ export default function ModifyClassList() {
             </div>
             <div className="class-list">
                 {classes.map((c) => (
-                    <ClassListing
-                        key={c.id}
-                        id={c.id}
-                        name={c.name}
-                        crf_id={c.crf_id}
-                        credits={c.credits}
-                        is_weighted={c.is_weighted}
-                    />
+                    <ClassListing key={c.id} {...c} />
                 ))}
             </div>
 

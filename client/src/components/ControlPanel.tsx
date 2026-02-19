@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { checkDB } from "../utils/modify";
+import { checkDB } from "../utils/health";
 
 import "../styles/ControlPanel.css";
 
