@@ -49,6 +49,10 @@ export const addSpecifiedClass = async (
         );
         res.status(201).json({ message: "Class added successfully" });
     } catch (err) {
+        if (err instanceof Error && err.name === "ValidationError") {
+            res.status(400).json({ error: err.message });
+            return;
+        }
         console.error("Error adding class:", err);
         res.status(500).json({ error: "Internal server error" });
     }
