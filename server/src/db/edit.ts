@@ -1,5 +1,6 @@
 import getPool from "./pool.js";
 import { ClassCreditCategory } from "../types/web.js";
+import { verifyCreditCategoryExists } from "./verification.js";
 
 export const createTables = async () => {
     await getPool().execute(`
@@ -67,6 +68,19 @@ export const addClass = async (
     csuCreditCategory: ClassCreditCategory[],
 ) => {
     const pool = getPool();
+
+    if (pusdCreditCategory.length > 0) {
+        for (const cat of pusdCreditCategory) {
+            await verifyCreditCategoryExists("pusd_credits", cat.name);
+        }
+    }
+
+    if (csuCreditCategory.length > 0) {
+        for (const cat of csuCreditCategory) {
+            await verifyCreditCategoryExists("csu_credits", cat.name);
+        }
+    }
+
     const [result] = await pool.execute(
         `INSERT INTO classes (name, crf_id, credits, grade_level, is_weighted, is_grade_required, semester_restriction, paired_with) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name = VALUES(name), credits = VALUES(credits), grade_level = VALUES(grade_level), is_weighted = VALUES(is_weighted), is_grade_required = VALUES(is_grade_required), semester_restriction = VALUES(semester_restriction), paired_with = VALUES(paired_with)`,
         [

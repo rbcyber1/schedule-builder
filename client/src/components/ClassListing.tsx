@@ -1,4 +1,5 @@
 import type { ClassesResponse } from "../../../shared/types/web";
+import { queueOperation } from "../utils/operations";
 import "../styles/ClassList.css";
 
 export default function ClassListing({
@@ -46,7 +47,14 @@ export default function ClassListing({
             )}
             <span className="class-list-item-credits">{credits} cr</span>
             <div className="class-list-item-button">
-                <button className="delete-button">X</button>
+                <button
+                    className="delete-button"
+                    onClick={() =>
+                        queueOperation({ type: "delete-class", classId: id })
+                    }
+                >
+                    X
+                </button>
             </div>
         </div>
     );

@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import type { ClassesResponse } from "../../../shared/types/web";
 import ClassListing from "./ClassListing";
+import { queueOperation } from "../utils/operations";
 
 import { displayClasses } from "../utils/displayModify";
 
@@ -11,6 +12,66 @@ import "../styles/Modal.css";
 export default function ModifyClassList() {
     const [showModal, setShowModal] = useState(false);
     const [classes, setClasses] = useState<ClassesResponse[]>([]);
+    const formRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const fetchClasses = () => {
+            displayClasses(setClasses);
+        };
+
+        fetchClasses();
+        window.addEventListener("updateDB", fetchClasses);
+        return () => window.removeEventListener("updateDB", fetchClasses);
+    }, []);
+
+    const handleAddClass = () => {
+        if (!formRef.current) return;
+
+        const inputs = formRef.current.querySelectorAll("input, select");
+        const name = (inputs[0] as HTMLInputElement).value.trim();
+        const crf_id = (inputs[1] as HTMLInputElement).value.trim();
+        const credits = parseInt((inputs[2] as HTMLInputElement).value) || 0;
+        const grade_level = parseInt((inputs[3] as HTMLSelectElement).value);
+        const semesterVal = (inputs[4] as HTMLSelectElement).value;
+        const is_weighted = (inputs[5] as HTMLInputElement).checked;
+        const is_grade_required = (inputs[6] as HTMLInputElement).checked;
+        const paired_with_val = (inputs[7] as HTMLInputElement).value;
+        const pusd_cats = (inputs[8] as HTMLInputElement).value.trim();
+        const csu_cats = (inputs[9] as HTMLInputElement).value.trim();
+
+        if (!name || !crf_id) return;
+
+        queueOperation({
+            type: "add-class",
+            data: {
+                name,
+                crf_id,
+                credits,
+                grade_level,
+                is_weighted,
+                is_grade_required,
+                semester_restriction:
+                    semesterVal ? parseInt(semesterVal) : null,
+                paired_with: paired_with_val ? parseInt(paired_with_val) : null,
+                pusd_credit_category:
+                    pusd_cats ?
+                        pusd_cats.split(",").map((s) => ({
+                            name: s.trim(),
+                            needed_credits: credits,
+                        }))
+                    :   [],
+                csu_credit_category:
+                    csu_cats ?
+                        csu_cats.split(",").map((s) => ({
+                            name: s.trim(),
+                            needed_credits: credits,
+                        }))
+                    :   [],
+            },
+        });
+
+        setShowModal(false);
+    };
 
     useEffect(() => {
         const fetchClasses = () => {
@@ -54,7 +115,7 @@ export default function ModifyClassList() {
                                 &times;
                             </button>
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body" ref={formRef}>
                             <div className="form-group">
                                 <label>Class Name</label>
                                 <input
@@ -143,7 +204,12 @@ export default function ModifyClassList() {
                             >
                                 Cancel
                             </button>
-                            <button className="modal-submit">Add Class</button>
+                            <button
+                                className="modal-submit"
+                                onClick={handleAddClass}
+                            >
+                                Add Class
+                            </button>
                         </div>
                     </div>
                 </div>

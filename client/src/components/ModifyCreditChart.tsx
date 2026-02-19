@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import type { CreditResponse } from "../../../shared/types/web";
 import {
     displayPUSDCreditRequirements,
     displayCSUCreditRequirements,
 } from "../utils/displayModify";
+import { queueOperation } from "../utils/operations";
 
 import "../styles/ModifyCreditChart.css";
 import "../styles/Modal.css";
@@ -12,6 +13,7 @@ import "../styles/Modal.css";
 export default function ModifyCreditChart() {
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState<"pusd" | "csu">("pusd");
+    const formRef = useRef<HTMLDivElement>(null);
 
     const [PUSDCredits, setPUSDCredits] = useState<CreditResponse>({});
     const [CSUCredits, setCSUCredits] = useState<CreditResponse>({});
@@ -30,6 +32,30 @@ export default function ModifyCreditChart() {
     const openModal = (type: "pusd" | "csu") => {
         setModalType(type);
         setShowModal(true);
+    };
+
+    const handleAddCredit = () => {
+        if (!formRef.current) return;
+
+        const inputs = formRef.current.querySelectorAll("input");
+        const name = (inputs[0] as HTMLInputElement).value.trim();
+        const credits = parseInt((inputs[1] as HTMLInputElement).value) || 0;
+
+        if (!name || credits <= 0) return;
+
+        queueOperation({
+            type: modalType === "pusd" ? "add-pusd-credit" : "add-csu-credit",
+            data: { name, needed_credits: credits },
+        });
+
+        setShowModal(false);
+    };
+
+    const handleDeleteCredit = (type: "pusd" | "csu", name: string) => {
+        queueOperation({
+            type: type === "pusd" ? "delete-pusd-credit" : "delete-csu-credit",
+            name,
+        });
     };
 
     return (
@@ -51,8 +77,18 @@ export default function ModifyCreditChart() {
                         </div>
                     :   Object.entries(PUSDCredits).map(([name, credits]) => (
                             <div key={name} className="credit-item">
-                                <span>{name}</span>
-                                <span>{String(credits)}</span>
+                                <span className="credit-item-name">{name}</span>
+                                <span className="credit-item-credits">
+                                    {String(credits)}
+                                </span>
+                                <button
+                                    className="credit-delete-button"
+                                    onClick={() =>
+                                        handleDeleteCredit("pusd", name)
+                                    }
+                                >
+                                    X
+                                </button>
                             </div>
                         ))
                     }
@@ -75,8 +111,18 @@ export default function ModifyCreditChart() {
                         </div>
                     :   Object.entries(CSUCredits).map(([name, credits]) => (
                             <div key={name} className="credit-item">
-                                <span>{name}</span>
-                                <span>{String(credits)}</span>
+                                <span className="credit-item-name">{name}</span>
+                                <span className="credit-item-credits">
+                                    {String(credits)}
+                                </span>
+                                <button
+                                    className="credit-delete-button"
+                                    onClick={() =>
+                                        handleDeleteCredit("csu", name)
+                                    }
+                                >
+                                    X
+                                </button>
                             </div>
                         ))
                     }
@@ -104,7 +150,7 @@ export default function ModifyCreditChart() {
                                 &times;
                             </button>
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body" ref={formRef}>
                             <div className="form-group">
                                 <label>Requirement Name</label>
                                 <input type="text" placeholder="e.g. English" />
@@ -125,7 +171,10 @@ export default function ModifyCreditChart() {
                             >
                                 Cancel
                             </button>
-                            <button className="modal-submit">
+                            <button
+                                className="modal-submit"
+                                onClick={handleAddCredit}
+                            >
                                 Add Requirement
                             </button>
                         </div>
