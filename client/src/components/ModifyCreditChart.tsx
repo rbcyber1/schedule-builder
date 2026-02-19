@@ -1,4 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import type { CreditResponse } from "../../../shared/types/web";
+import {
+    displayPUSDCreditRequirements,
+    displayCSUCreditRequirements,
+} from "../utils/displayModify";
 
 import "../styles/ModifyCreditChart.css";
 import "../styles/Modal.css";
@@ -6,6 +12,20 @@ import "../styles/Modal.css";
 export default function ModifyCreditChart() {
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState<"pusd" | "csu">("pusd");
+
+    const [PUSDCredits, setPUSDCredits] = useState<CreditResponse>({});
+    const [CSUCredits, setCSUCredits] = useState<CreditResponse>({});
+
+    useEffect(() => {
+        const fetchCredits = () => {
+            displayPUSDCreditRequirements(setPUSDCredits);
+            displayCSUCreditRequirements(setCSUCredits);
+        };
+
+        fetchCredits();
+        window.addEventListener("updateDB", fetchCredits);
+        return () => window.removeEventListener("updateDB", fetchCredits);
+    }, []);
 
     const openModal = (type: "pusd" | "csu") => {
         setModalType(type);
@@ -24,7 +44,19 @@ export default function ModifyCreditChart() {
                         Add Credit
                     </button>
                 </div>
-                <div className="credit-list pusd-chart"></div>
+                <div className="credit-list pusd-chart">
+                    {Object.entries(PUSDCredits).length === 0 ?
+                        <div className="credit-list-empty">
+                            No requirements available
+                        </div>
+                    :   Object.entries(PUSDCredits).map(([name, credits]) => (
+                            <div key={name} className="credit-item">
+                                <span>{name}</span>
+                                <span>{String(credits)}</span>
+                            </div>
+                        ))
+                    }
+                </div>
             </div>
             <div className="credit-section">
                 <div className="credit-section-header">
@@ -36,7 +68,19 @@ export default function ModifyCreditChart() {
                         Add Credit
                     </button>
                 </div>
-                <div className="credit-list csu-chart"></div>
+                <div className="credit-list csu-chart">
+                    {Object.entries(CSUCredits).length === 0 ?
+                        <div className="credit-list-empty">
+                            No requirements available
+                        </div>
+                    :   Object.entries(CSUCredits).map(([name, credits]) => (
+                            <div key={name} className="credit-item">
+                                <span>{name}</span>
+                                <span>{String(credits)}</span>
+                            </div>
+                        ))
+                    }
+                </div>
             </div>
 
             {showModal && (

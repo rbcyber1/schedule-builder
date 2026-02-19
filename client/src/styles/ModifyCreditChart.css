@@ -54,3 +54,10 @@
     flex-direction: column;
     gap: 0.4rem;
 }
+
+.credit-list-empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 2rem;
+}

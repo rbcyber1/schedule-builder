@@ -1,4 +1,5 @@
 import getPool from "./pool.js";
+import { ClassCreditCategory } from "../types/web.js";
 
 export const createTables = async () => {
     await getPool().execute(`
@@ -31,6 +32,26 @@ export const createTables = async () => {
             FOREIGN KEY (paired_with) REFERENCES classes(id)
         )
     `);
+
+    await getPool().execute(`
+        CREATE TABLE IF NOT EXISTS class_pusd_credits (
+            class_id INT NOT NULL,
+            credit_name VARCHAR(255) NOT NULL,
+            needed_credits INT NOT NULL,
+            PRIMARY KEY (class_id, credit_name),
+            FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE
+        )
+    `);
+
+    await getPool().execute(`
+        CREATE TABLE IF NOT EXISTS class_csu_credits (
+            class_id INT NOT NULL,
+            credit_name VARCHAR(255) NOT NULL,
+            needed_credits INT NOT NULL,
+            PRIMARY KEY (class_id, credit_name),
+            FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE
+        )
+    `);
 };
 
 export const addClass = async (
@@ -42,8 +63,11 @@ export const addClass = async (
     isGradeRequired: boolean,
     semesterRestriction: number | null,
     pairedWith: number | null,
+    pusdCreditCategory: ClassCreditCategory[],
+    csuCreditCategory: ClassCreditCategory[],
 ) => {
-    await getPool().execute(
+    const pool = getPool();
+    const [result] = await pool.execute(
         `INSERT INTO classes (name, crf_id, credits, grade_level, is_weighted, is_grade_required, semester_restriction, paired_with) VALUES (?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name = VALUES(name), credits = VALUES(credits), grade_level = VALUES(grade_level), is_weighted = VALUES(is_weighted), is_grade_required = VALUES(is_grade_required), semester_restriction = VALUES(semester_restriction), paired_with = VALUES(paired_with)`,
         [
             name,
@@ -56,6 +80,29 @@ export const addClass = async (
             pairedWith,
         ],
     );
+
+    const classId = (result as { insertId: number }).insertId;
+
+    await pool.execute(`DELETE FROM class_pusd_credits WHERE class_id = ?`, [
+        classId,
+    ]);
+    await pool.execute(`DELETE FROM class_csu_credits WHERE class_id = ?`, [
+        classId,
+    ]);
+
+    for (const cat of pusdCreditCategory) {
+        await pool.execute(
+            `INSERT INTO class_pusd_credits (class_id, credit_name, needed_credits) VALUES (?, ?, ?)`,
+            [classId, cat.name, cat.needed_credits],
+        );
+    }
+
+    for (const cat of csuCreditCategory) {
+        await pool.execute(
+            `INSERT INTO class_csu_credits (class_id, credit_name, needed_credits) VALUES (?, ?, ?)`,
+            [classId, cat.name, cat.needed_credits],
+        );
+    }
 };
 
 export const addCreditRequirement = async (

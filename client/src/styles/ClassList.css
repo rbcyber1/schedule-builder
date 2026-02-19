@@ -121,6 +121,13 @@
     color: #dc2626;
 }
 
+.class-list-empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 2rem;
+}
+
 @media (prefers-color-scheme: dark) {
     .class-list-item .delete-button:hover {
         background: rgba(220, 38, 38, 0.15);

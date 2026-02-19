@@ -31,10 +31,10 @@
 }
 
 .operations-list-empty {
-    padding: 1.5rem 1rem;
     text-align: center;
-    color: var(--text-subtle);
-    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 2rem;
 }
 
 .operation-item {
