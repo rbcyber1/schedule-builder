@@ -34,9 +34,9 @@ export default function ModifyClassList() {
                 </button>
             </div>
             <div className="class-list">
-                {classes.map((c) => (
-                    <ClassListing key={c.id} {...c} />
-                ))}
+                {classes.length === 0 ?
+                    <div className="class-list-empty">No classes available</div>
+                :   classes.map((c) => <ClassListing key={c.id} {...c} />)}
             </div>
 
             {showModal && (

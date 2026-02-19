@@ -1,5 +1,6 @@
 import type Class from "../../../../shared/types/class";
 import type { ClassCreditCategory } from "../../../../shared/types/web";
+import { addOperation } from "../operations";
 
 export function addClass(accessCode: string, classData: Class) {
     return fetch("/api/edit/class", {
@@ -20,6 +21,7 @@ export function addClass(accessCode: string, classData: Class) {
         }),
     }).then((response) => {
         if (!response.ok) throw new Error("Failed to add class");
+        addOperation(`Added class: ${classData.name}`);
         return response.json();
     });
 }
@@ -39,6 +41,7 @@ export function addPUSDCreditRequirement(
     }).then((response) => {
         if (!response.ok)
             throw new Error("Failed to add PUSD credit requirement");
+        addOperation(`Added PUSD credit requirement: ${category.name}`);
         return response.json();
     });
 }
@@ -58,6 +61,7 @@ export function addCSUCreditRequirement(
     }).then((response) => {
         if (!response.ok)
             throw new Error("Failed to add CSU credit requirement");
+        addOperation(`Added CSU credit requirement: ${category.name}`);
         return response.json();
     });
 }
@@ -69,6 +73,7 @@ export function deleteClass(accessCode: string, classId: number) {
         body: JSON.stringify({ access_code: accessCode }),
     }).then((response) => {
         if (!response.ok) throw new Error("Failed to delete class");
+        addOperation(`Deleted class #${classId}`);
         return response.json();
     });
 }
@@ -87,6 +92,7 @@ export function deletePUSDCreditRequirement(
     ).then((response) => {
         if (!response.ok)
             throw new Error("Failed to delete PUSD credit requirement");
+        addOperation(`Deleted PUSD credit requirement: ${requirementName}`);
         return response.json();
     });
 }
@@ -105,6 +111,7 @@ export function deleteCSUCreditRequirement(
     ).then((response) => {
         if (!response.ok)
             throw new Error("Failed to delete CSU credit requirement");
+        addOperation(`Deleted CSU credit requirement: ${requirementName}`);
         return response.json();
     });
 }

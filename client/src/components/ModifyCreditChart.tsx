@@ -45,12 +45,17 @@ export default function ModifyCreditChart() {
                     </button>
                 </div>
                 <div className="credit-list pusd-chart">
-                    {Object.entries(PUSDCredits).map(([name, credits]) => (
-                        <div key={name} className="credit-item">
-                            <span>{name}</span>
-                            <span>{String(credits)}</span>
+                    {Object.entries(PUSDCredits).length === 0 ?
+                        <div className="credit-list-empty">
+                            No requirements available
                         </div>
-                    ))}
+                    :   Object.entries(PUSDCredits).map(([name, credits]) => (
+                            <div key={name} className="credit-item">
+                                <span>{name}</span>
+                                <span>{String(credits)}</span>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
             <div className="credit-section">
@@ -64,12 +69,17 @@ export default function ModifyCreditChart() {
                     </button>
                 </div>
                 <div className="credit-list csu-chart">
-                    {Object.entries(CSUCredits).map(([name, credits]) => (
-                        <div key={name} className="credit-item">
-                            <span>{name}</span>
-                            <span>{String(credits)}</span>
+                    {Object.entries(CSUCredits).length === 0 ?
+                        <div className="credit-list-empty">
+                            No requirements available
                         </div>
-                    ))}
+                    :   Object.entries(CSUCredits).map(([name, credits]) => (
+                            <div key={name} className="credit-item">
+                                <span>{name}</span>
+                                <span>{String(credits)}</span>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
 
