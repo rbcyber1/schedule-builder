@@ -1,12 +1,31 @@
 import { useState } from "react";
 
-import { checkDB } from "../utils/health";
+import { submitOperations } from "../utils/operations";
 
 import "../styles/ControlPanel.css";
 
 export default function ControlPanel() {
     const [accessCode, setAccessCode] = useState("");
     const [response, setResponse] = useState("No response yet.");
+    const [submitting, setSubmitting] = useState(false);
+
+    const handleSubmit = async () => {
+        setSubmitting(true);
+        setResponse("Submitting operations...");
+        try {
+            const results = await submitOperations(accessCode);
+            if (results.length === 0) {
+                setResponse("No operations to submit.");
+            } else {
+                setResponse(results.join("\n"));
+            }
+        } catch {
+            setResponse("Error submitting operations.");
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
     return (
         <div className="control-panel">
             <div className="control-panel-left">
@@ -24,10 +43,10 @@ export default function ControlPanel() {
                 />
                 <button
                     className="submit-button"
-                    disabled={!accessCode}
-                    onClick={() => checkDB(accessCode, setResponse)}
+                    disabled={!accessCode || submitting}
+                    onClick={handleSubmit}
                 >
-                    Submit
+                    {submitting ? "Submitting..." : "Submit"}
                 </button>
             </div>
         </div>

@@ -13,15 +13,13 @@ import {
     MessageResponse,
 } from "../types/web.js";
 
-const ACCESS_CODE = process.env.SB_ACCESS_CODE;
-
 export const addSpecifiedClass = async (
     req: Request,
     res: Response<MessageResponse | ErrorResponse>,
 ): Promise<void> => {
     try {
         const { access_code } = req.body;
-        if (access_code !== ACCESS_CODE) {
+        if (access_code !== process.env.SB_ACCESS_CODE) {
             res.status(401).json({ error: "Unauthorized" });
             return;
         }
@@ -62,7 +60,7 @@ export const addPUSDCreditRequirement = async (
 ): Promise<void> => {
     try {
         const { access_code } = req.body;
-        if (access_code !== ACCESS_CODE) {
+        if (access_code !== process.env.SB_ACCESS_CODE) {
             res.status(401).json({ error: "Unauthorized" });
             return;
         }
@@ -83,7 +81,7 @@ export const addCSUCreditRequirement = async (
 ): Promise<void> => {
     try {
         const { access_code } = req.body;
-        if (access_code !== ACCESS_CODE) {
+        if (access_code !== process.env.SB_ACCESS_CODE) {
             res.status(401).json({ error: "Unauthorized" });
             return;
         }
@@ -104,7 +102,7 @@ export const deleteSpecifiedClass = async (
 ): Promise<void> => {
     try {
         const { access_code } = req.body;
-        if (access_code !== ACCESS_CODE) {
+        if (access_code !== process.env.SB_ACCESS_CODE) {
             res.status(401).json({ error: "Unauthorized" });
             return;
         }
@@ -123,7 +121,7 @@ export const deletePUSDCreditRequirement = async (
 ): Promise<void> => {
     try {
         const { access_code } = req.body;
-        if (access_code !== ACCESS_CODE) {
+        if (access_code !== process.env.SB_ACCESS_CODE) {
             res.status(401).json({ error: "Unauthorized" });
             return;
         }
@@ -142,7 +140,7 @@ export const deleteCSUCreditRequirement = async (
 ): Promise<void> => {
     try {
         const { access_code } = req.body;
-        if (access_code !== ACCESS_CODE) {
+        if (access_code !== process.env.SB_ACCESS_CODE) {
             res.status(401).json({ error: "Unauthorized" });
             return;
         }
