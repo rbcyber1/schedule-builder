@@ -34,6 +34,8 @@ export const addSpecifiedClass = async (
             is_grade_required,
             semester_restriction,
             paired_with,
+            pusd_credit_category,
+            csu_credit_category,
         } = req.body;
         await addClass(
             name,
@@ -44,6 +46,8 @@ export const addSpecifiedClass = async (
             is_grade_required,
             semester_restriction,
             paired_with,
+            pusd_credit_category ?? [],
+            csu_credit_category ?? [],
         );
         res.status(201).json({ message: "Class added successfully" });
     } catch (err) {

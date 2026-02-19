@@ -1,5 +1,6 @@
 export {
     CreditResponse,
+    ClassCreditCategory,
     ClassesResponse,
     HealthResponse,
     ErrorResponse,

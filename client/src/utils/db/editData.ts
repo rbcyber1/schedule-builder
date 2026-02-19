@@ -1,5 +1,5 @@
 import type Class from "../../../../shared/types/class";
-import type { CreditCategory } from "../../../../shared/types/class";
+import type { ClassCreditCategory } from "../../../../shared/types/web";
 
 export function addClass(accessCode: string, classData: Class) {
     return fetch("/api/edit/class", {
@@ -15,6 +15,8 @@ export function addClass(accessCode: string, classData: Class) {
             is_grade_required: classData.isGradeRequired,
             semester_restriction: classData.semesterRestriction,
             paired_with: classData.pairedWith,
+            pusd_credit_category: classData.pusd_credit_category,
+            csu_credit_category: classData.csu_credit_category,
         }),
     }).then((response) => {
         if (!response.ok) throw new Error("Failed to add class");
@@ -24,7 +26,7 @@ export function addClass(accessCode: string, classData: Class) {
 
 export function addPUSDCreditRequirement(
     accessCode: string,
-    category: CreditCategory,
+    category: ClassCreditCategory,
 ) {
     return fetch("/api/edit/credit/pusd", {
         method: "POST",
@@ -43,7 +45,7 @@ export function addPUSDCreditRequirement(
 
 export function addCSUCreditRequirement(
     accessCode: string,
-    category: CreditCategory,
+    category: ClassCreditCategory,
 ) {
     return fetch("/api/edit/credit/csu", {
         method: "POST",

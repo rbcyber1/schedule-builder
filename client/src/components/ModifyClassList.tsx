@@ -121,6 +121,20 @@ export default function ModifyClassList() {
                                     min={0}
                                 />
                             </div>
+                            <div className="form-group">
+                                <label>PUSD Credit Categories</label>
+                                <input
+                                    type="text"
+                                    placeholder="e.g. English, Math"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>CSU Credit Categories</label>
+                                <input
+                                    type="text"
+                                    placeholder="e.g. A-History, B-English"
+                                />
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button

@@ -11,6 +11,8 @@ export default function ClassListing({
     is_grade_required,
     semester_restriction,
     paired_with,
+    pusd_credit_category,
+    csu_credit_category,
 }: ClassesResponse) {
     return (
         <div className="class-list-item">
@@ -30,6 +32,16 @@ export default function ClassListing({
             {paired_with && (
                 <span className="class-list-item-badge">
                     Paired: #{paired_with}
+                </span>
+            )}
+            {pusd_credit_category.length > 0 && (
+                <span className="class-list-item-badge">
+                    PUSD: {pusd_credit_category.map((c) => c.name).join(", ")}
+                </span>
+            )}
+            {csu_credit_category.length > 0 && (
+                <span className="class-list-item-badge">
+                    CSU: {csu_credit_category.map((c) => c.name).join(", ")}
                 </span>
             )}
             <span className="class-list-item-credits">{credits} cr</span>
